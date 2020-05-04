@@ -1,0 +1,46 @@
+{% extends "layouts/base-site-fullscreen_self.html" %}
+
+{% block title %} Search {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+    <div class="card card-login">
+
+      <form class="form" method="post" action="">
+        
+        {{ form.hidden_tag() }}
+
+        <div class="card-header card-header-primary text-center" style="padding-bottom: 30px;">
+          <h4 class="card-title">Product visual semantic search</h4>
+        </div>
+
+        <div class="card-body" style="margin-top: 100px">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">face</i>
+              </span>
+            </div>
+
+            {{ form.query(class="form-control", placeholder="What product are you looking for?") }}
+              
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 25px">
+          <button type="submit" name="login" class="btn btn-primary">Search</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

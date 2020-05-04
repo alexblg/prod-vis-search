@@ -22,7 +22,7 @@
    <link rel="icon" type="image/png" href="/static/assets/img/favicon.png">
    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
    <title>
-       Flask Material Kit - {% block title %}{% endblock %} | AppSeed
+       Product visual semantic search
    </title>
    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
    <!--     Fonts and icons     -->
@@ -32,26 +32,34 @@
    <link href="/static/assets/css/material-kit.css?v=2.0.6" rel="stylesheet" />
    <!-- CSS Just for demo purpose, don't include it in your project -->
    <link href="/static/assets/demo/demo.css" rel="stylesheet" />
-
+ 
    <!-- Specific Page CSS goes HERE  -->
    {% block stylesheets %}{% endblock stylesheets %}
-      
+ 
  </head>
  
- <body class="{% block body_class %}{% endblock body_class %} sidebar-collapse">
+ <body class="login-page sidebar-collapse">
  
-   <!-- {% include 'includes/navigation.html' %} -->
+   <!-- {% include 'includes/navigation.html' %}  -->
  
-   {% block content %}{% endblock content %}
+   <div class="page-header header-filter" style="background-image: url('/static/assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
+     <div class="container">
+       <div class="row">
  
-   {% include 'includes/footer.html' %}
+         {% block content %}{% endblock content %}
  
+       </div>
+     </div>
+
+   </div>
+
+   {% include 'includes/footer-fullscreen.html' %}
+
    {% include 'includes/scripts.html' %}
-  
+ 
    <!-- Specific Page JS goes HERE  -->
    {% block javascripts %}{% endblock javascripts %}
  
  </body>
- 
  </html>
  
