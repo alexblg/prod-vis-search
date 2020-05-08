@@ -3,7 +3,7 @@ import os
 import json
 import sys
 
-from utils import get_p_html, save_img
+from utils import get_p_html
 
 base_url= 'https://www.lesraffineurs.com/'
 
