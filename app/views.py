@@ -16,7 +16,7 @@ from app        import app
 from app.forms  import ProdSearch
 
 # Product search
-@app.route('/search.html', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     
     # Declare the form
@@ -31,4 +31,13 @@ def search():
         # assign form data to variables
         query = request.form.get('query', '', type=str)
 
-    return render_template('pages/search.html', form=form, msg=msg )
+    return render_template('pages/search.html', form=form, msg=msg)
+
+# Product search
+@app.route('/results')
+def results():
+    
+    # Flask message injected into the page, in case of any errors
+    msg = None
+
+    return render_template('pages/results.html', msg=msg)

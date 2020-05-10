@@ -1,0 +1,56 @@
+{% extends "layouts/base-site.html" %}
+
+{% block title %} Landing Page {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} profile-page {% endblock body_class %}
+
+{% block content %}
+
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('/static/assets/img/city-profile.jpg');"></div>
+<div class="main main-raised">
+  <div class="profile-content">
+    <div class="container">
+      <div class="row">
+      </div>
+      <div class="tab-content tab-space">
+        <div class="tab-pane active text-center gallery" id="studio">
+          <div class="row">
+            <div class="col-md-3 ml-auto">
+              <img src="/static/assets/img/examples/studio-1.jpg" class="rounded">
+              <img src="/static/assets/img/examples/studio-2.jpg" class="rounded">
+            </div>
+            <div class="col-md-3 mr-auto">
+              <img src="/static/assets/img/examples/studio-5.jpg" class="rounded">
+              <img src="/static/assets/img/examples/studio-4.jpg" class="rounded">
+            </div>
+          <div class="row">
+            <div class="col-md-3 ml-auto">
+              <img src="/static/assets/img/examples/studio-1.jpg" class="rounded">
+              <img src="/static/assets/img/examples/studio-2.jpg" class="rounded">
+            </div>
+            <div class="col-md-3 mr-auto">
+              <img src="/static/assets/img/examples/studio-5.jpg" class="rounded">
+              <img src="/static/assets/img/examples/studio-4.jpg" class="rounded">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 ml-auto">
+              <img src="/static/assets/img/examples/studio-1.jpg" class="rounded">
+              <img src="/static/assets/img/examples/studio-2.jpg" class="rounded">
+            </div>
+            <div class="col-md-3 mr-auto">
+              <img src="/static/assets/img/examples/studio-5.jpg" class="rounded">
+              <img src="/static/assets/img/examples/studio-4.jpg" class="rounded">
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
