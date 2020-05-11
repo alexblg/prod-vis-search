@@ -15,6 +15,9 @@ from werkzeug.exceptions import HTTPException, NotFound, abort
 from app        import app
 from app.forms  import ProdSearch
 
+# search models
+from .imgsearch import image_search_res0
+
 # Product search
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -38,7 +41,7 @@ def search():
     else:
         msg = 'Input error: text should be shorter than 64 characters'
 
-    return render_template( 'pages/results.html', form=form, msg=msg )
+    return render_template( 'pages/results.html', len=len(image_search_res0('')), res=image_search_res0(''), msg=msg )
 
     
 
