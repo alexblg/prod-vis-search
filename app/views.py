@@ -25,13 +25,22 @@ def search():
     # Flask message injected into the page, in case of any errors
     msg = None
 
+    if request.method == 'GET':
+        return render_template( 'pages/search.html', form=form, msg=msg )
+
     # check if both http method is POST and form is valid on submit
     if form.validate_on_submit():
 
         # assign form data to variables
         query = request.form.get('query', '', type=str)
+        print(query)
 
-    return render_template('pages/search.html', form=form, msg=msg)
+    else:
+        msg = 'Input error: text should be shorter than 64 characters'
+
+    return render_template( 'pages/results.html', form=form, msg=msg )
+
+    
 
 # Product search
 @app.route('/results')

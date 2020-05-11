@@ -18,6 +18,12 @@
           <h4 class="card-title">Product visual semantic search</h4>
         </div>
 
+        <p class="description text-center">
+          {% if msg %}
+            <span class="text-danger">{{ msg | safe }}</span>   
+          {% endif %}
+        </p>
+
         <div class="card-body" style="margin-top: 100px">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -30,10 +36,8 @@
         </div>
 
         <div class="text-center" style="margin-top: 25px">
-          <a href="/results" name="search" class="btn btn-primary">
-          Search
-          </a>
-          <!--button type="submit" name="search" class="btn btn-primary">Search</button-->
+          <!--a href="/results" name="search" class="btn btn-primary">Search</a-->
+          <button type="submit" name="search" class="btn btn-primary">Search</button>
         </div>
 
       </form>
