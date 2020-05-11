@@ -3,10 +3,10 @@
 License: MIT
 Copyright (c) 2019 - present AppSeed.us
 """
-
 import os
 import pandas as pd
 import random
+import numpy as np
 
 get_img_name_from_href = lambda prod_id, href: '-'.join([prod_id]+href.split('/')[-2:])
 get_img_name = lambda sel_id, img_id: get_img_name_from_href(df.loc[sel_id, 'id'], df.loc[sel_id, 'images'][img_id])
@@ -30,3 +30,20 @@ def image_search_res1(query, path=IMG_INVENTORY_PATH):
     df = pd.read_csv(path)
     idxs = [random.randrange(df.shape[0]) for i in range(10)]
     return df.iloc[idxs].image_name.tolist()
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+def image_search_res2(query, path='static/img_top10_labels.csv'):
+    # load image label data
+    df = pd.read_csv(path)
+
+    # generate BoW
+    vect = CountVectorizer()
+    bow = vect.fit_transform(df.content.tolist())
+    voc = vect.vocabulary_
+    
+    if query in voc:
+        img_idx = list(np.where(bow[:,voc[query]].todense() >0)[0])
+        return df.loc[img_idx, 'image_name'].tolist()
+    else:
+        return []

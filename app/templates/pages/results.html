@@ -18,27 +18,31 @@
         <div class="tab-pane active text-center gallery" id="studio">
           
           <div class="row">
-          {%for imgs in range(0,len,3)%} 
-            <!--div class="row">
-              <div class="col-md-3 ml-auto">
-                <img src="/static/prod_images/{{img}}" class=" rounded" style='max-height: 300px;'>
+          {% if len > 0 %}
+            {%for imgs in range(0,len,3)%} 
+              <!--div class="row">
+                <div class="col-md-3 ml-auto">
+                  <img src="/static/prod_images/{{img}}" class=" rounded" style='max-height: 300px;'>
+                </div-->
+                <!--div class="col-md-3 mr-auto">
+                  <img src="/static/assets/img/examples/studio-5.jpg" class="rounded">
+                  <img src="/static/assets/img/examples/studio-4.jpg" class="rounded"-->
+                <!--/div>
               </div-->
-              <!--div class="col-md-3 mr-auto">
-                <img src="/static/assets/img/examples/studio-5.jpg" class="rounded">
-                <img src="/static/assets/img/examples/studio-4.jpg" class="rounded"-->
-              <!--/div>
-            </div-->
-            {%for img in [imgs,imgs+1,imgs+2]%}
-              <div class="col-md-4">
-                <div class="thumbnail">
-                    <img src="/static/prod_images/{{res[img]}}" class=" rounded" alt="Lights" style="width:100%">
-                    <div class="caption">
-                      <p>Lorem ipsum...</p>
-                    </div>
+              {%for img in [imgs,imgs+1,imgs+2]%}
+                <div class="col-md-4">
+                  <div class="thumbnail">
+                      <img src="/static/prod_images/{{res[img]}}" class=" rounded" alt="Lights" style="width:100%">
+                      <div class="caption">
+                        <p>Lorem ipsum...</p>
+                      </div>
+                  </div>
                 </div>
-              </div>
-            {%endfor%}  
-          {%endfor%}
+              {%endfor%}  
+            {%endfor%}
+          {% else %}
+            <p>No search results</p>
+          {% endif %}
           </div>
           
         </div>
