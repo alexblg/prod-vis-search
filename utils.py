@@ -6,3 +6,7 @@ def get_topn_labels(row, n=10):
     outdf.columns = ['label_id','percentage']
     outdf['label_name'] = outdf.label_id.map(labels)
     return outdf
+
+class ToRGB(object):
+    def __call__(self, img):
+        return img.convert('RGB')

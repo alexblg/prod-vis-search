@@ -40,7 +40,9 @@ net.to(device)
 net.eval()
 
 from torchvision import transforms
+from utils import ToRGB
 transform = transforms.Compose([            #[1]
+ ToRGB(),
  transforms.Resize(256),                    #[2]
  transforms.CenterCrop(224),                #[3]
  transforms.ToTensor(),                     #[4]
