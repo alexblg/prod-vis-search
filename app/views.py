@@ -5,18 +5,17 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 # Python modules
-import os, logging 
+import os 
 
 # Flask modules
 from flask               import render_template, request, url_for, redirect, send_from_directory
-from werkzeug.exceptions import HTTPException, NotFound, abort
 
 # App modules
 from app        import app
 from app.forms  import ProdSearch
 
 # search models
-from .imgsearch import image_search_res0, image_search_res1, image_search_res2
+from .imgsearch import image_search_res0, image_search_res1, image_search_res2, get_prod_name_from_img_name
 
 # Product search
 @app.route('/search', methods=['GET', 'POST'])
@@ -43,9 +42,12 @@ def search():
 
     # get query image results
     img_list = image_search_res2(query, path='app/static/img_top10_labels.csv')
-    print(img_list)
+    prod_names = get_prod_name_from_img_name(img_list, path='app/static/prod_inventory.csv') # corresponding product names
 
-    return render_template( 'pages/results.html', len=len(img_list), res=img_list, msg=msg )
+    # select top 12 results (later replace by pagination)
+    img_list = img_list[:12]
+
+    return render_template( 'pages/results.html', len=len(img_list), res=img_list, img_info=prod_names, msg=msg )
 
     
 

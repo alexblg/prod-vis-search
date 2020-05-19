@@ -1,6 +1,6 @@
-{% extends "layouts/base-site.html" %}
+{% extends "layouts/base-site_self.html" %}
 
-{% block title %} Landing Page {% endblock %} 
+{% block title %} Results {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -30,11 +30,11 @@
                 <!--/div>
               </div-->
               {%for img in [imgs,imgs+1,imgs+2]%}
-                <div class="col-md-4">
+                <div class="col-md-4" style="margin-bottom: 30px">
                   <div class="thumbnail">
-                      <img src="/static/prod_images/{{res[img]}}" class=" rounded" alt="Lights" style="width:100%">
+                      <img src="/static/prod_images/{{res[img]}}" class=" rounded" alt="Lights" style="width:100%; margin-bottom: 5px">
                       <div class="caption">
-                        <p>Lorem ipsum...</p>
+                        <p>{{img_info [img]}}</p>
                       </div>
                   </div>
                 </div>

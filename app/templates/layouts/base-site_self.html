@@ -5,7 +5,7 @@
 
  * Product Page: https://www.creative-tim.com/product/material-kit
  * Copyright 2019 Creative Tim (http://www.creative-tim.com)
-   Licensed under MIT (https://github.com/creativetimofficial/material-kit/blob/master/LICENSE.md)
+   Licensed under MIT (https://github.com/creativetimofficial/material-kit/blob/master/LICENSE.md) 
 
 
  =========================================================
@@ -32,34 +32,26 @@
    <link href="/static/assets/css/material-kit.css?v=2.0.6" rel="stylesheet" />
    <!-- CSS Just for demo purpose, don't include it in your project -->
    <link href="/static/assets/demo/demo.css" rel="stylesheet" />
- 
+
    <!-- Specific Page CSS goes HERE  -->
    {% block stylesheets %}{% endblock stylesheets %}
- 
+      
  </head>
  
- <body class="login-page sidebar-collapse">
+ <body class="{% block body_class %}{% endblock body_class %} sidebar-collapse">
  
-   <!-- {% include 'includes/navigation.html' %}  -->
+   <!-- {% include 'includes/navigation.html' %} -->
  
-   <div class="page-header header-filter" style="background-image: url('/static/assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
-     <div class="container">
-       <div class="row">
+   {% block content %}{% endblock content %}
  
-         {% block content %}{% endblock content %}
+   {% include 'includes/footer.html' %}
  
-       </div>
-     </div>
-
-   </div>
-
-   {% include 'includes/footer-fullscreen.html' %}
-
    {% include 'includes/scripts.html' %}
- 
+  
    <!-- Specific Page JS goes HERE  -->
    {% block javascripts %}{% endblock javascripts %}
  
  </body>
+ 
  </html>
  

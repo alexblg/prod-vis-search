@@ -47,3 +47,9 @@ def image_search_res2(query, path='static/img_top10_labels.csv'):
         return df.loc[img_idx, 'image_name'].tolist()
     else:
         return []
+
+def get_prod_name_from_img_name(img_list, path='static/prod_inventory.csv'):
+    df = pd.read_csv(path)
+    return [
+        df.query("id == '{}'".format(img.split('-')[0])).name.values[0]
+        for img in img_list]
