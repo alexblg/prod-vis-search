@@ -15,7 +15,8 @@ from app        import app
 from app.forms  import ProdSearch
 
 # search models
-from .imgsearch import image_search_res0, image_search_res1, image_search_res2, get_prod_name_from_img_name
+from .imgsearch import image_search_res3
+from .utils import get_prod_name_from_img_name
 
 # Product search
 @app.route('/search', methods=['GET', 'POST'])
@@ -41,7 +42,7 @@ def search():
         msg = 'Input error: text should be shorter than 64 characters'
 
     # get query image results
-    img_list = image_search_res2(query, path='app/static/img_top10_labels.csv')
+    img_list = image_search_res3(query, path='app/static/img_top10_labels.csv')
     prod_names = get_prod_name_from_img_name(img_list, path='app/static/prod_inventory.csv') # corresponding product names
 
     # select top 12 results (later replace by pagination)
@@ -49,7 +50,6 @@ def search():
 
     return render_template( 'pages/results.html', len=len(img_list), res=img_list, img_info=prod_names, msg=msg )
 
-    
 
 # Product search
 @app.route('/results')

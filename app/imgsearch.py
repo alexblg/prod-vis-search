@@ -12,7 +12,7 @@ get_img_name_from_href = lambda prod_id, href: '-'.join([prod_id]+href.split('/'
 get_img_name = lambda sel_id, img_id: get_img_name_from_href(df.loc[sel_id, 'id'], df.loc[sel_id, 'images'][img_id])
 
 IMG_PATH = r"C:\Users\alexa\Documents\data\wir\project\raffineurs"
-IMG_INVENTORY_PATH = 'app/static/img_inventory.csv'
+IMG_INVENTORY_PATH = 'static/img_inventory.csv'
 IMG_STATIC_LIST = ['1015-8599-large_default-votre-portrait-dans-un-studio-du-xixeme-siecle.jpg',
  '1033-8975-large_default-mug-egoist-feminisit-anarchist-pessimist-optimist.jpg',
  '1058-14147-large_default-t-shirt-smoking-pipe.jpg',
@@ -48,8 +48,26 @@ def image_search_res2(query, path='static/img_top10_labels.csv'):
     else:
         return []
 
-def get_prod_name_from_img_name(img_list, path='static/prod_inventory.csv'):
+from numpy.linalg import norm
+
+def cosine_sim(a, b):
+    return np.dot(a, b.T) / (norm(a)*norm(b.T))
+
+def image_search_res3(query, path='static/img_top10_labels.csv'):
+    # load image label data
     df = pd.read_csv(path)
-    return [
-        df.query("id == '{}'".format(img.split('-')[0])).name.values[0]
-        for img in img_list]
+
+    # generate BoW
+    vect = CountVectorizer()
+    bow = vect.fit_transform(df.content.tolist())
+    voc = vect.vocabulary_
+    
+    # get query representation
+    q = vect.transform([query]).todense()
+    
+    # rank results
+    ranks = cosine_sim(q, bow.todense()[:,:])
+    ranks = np.asarray(ranks)[0]
+    ranked_idx = np.argsort(-ranks)
+    
+    return df.loc[ranked_idx,'image_name'].tolist()[:12]
