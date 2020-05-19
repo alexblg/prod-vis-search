@@ -60,14 +60,46 @@ def image_search_res3(query, path='static/img_top10_labels.csv'):
     # generate BoW
     vect = CountVectorizer()
     bow = vect.fit_transform(df.content.tolist())
-    voc = vect.vocabulary_
     
     # get query representation
     q = vect.transform([query]).todense()
     
-    # rank results
-    ranks = cosine_sim(q, bow.todense()[:,:])
-    ranks = np.asarray(ranks)[0]
-    ranked_idx = np.argsort(-ranks)
+    if q.sum() > 0:
+	    # rank results
+	    ranks = cosine_sim(q, bow.todense()[:,:])
+	    ranks = np.asarray(ranks)[0]
+	    ranked_idx = np.argsort(-ranks)
+	    
+	    return df.loc[ranked_idx,'image_name'].tolist()[:12]
+    else: # no matching result
+        return []
+
+from scipy import sparse
+
+def image_search_res4(query, path='static/img_top10_labels.csv'):
+
+	# load image label data
+    df = pd.read_csv(path)
+
+    # generate BoW
+    vect = CountVectorizer()
+    vect.fit(df.content.tolist())
     
-    return df.loc[ranked_idx,'image_name'].tolist()[:12]
+    # load BoW
+    bow = sparse.load_npz("app/bow.npz")
+    
+    # get query representation
+    q = vect.transform([query]).todense()
+    
+    if q.sum() > 0:
+        # rank results
+        ranks = cosine_sim(q, bow.todense()[:,:])
+        ranks = np.asarray(ranks)[0]
+        ranked_idx = np.argsort(-ranks)
+
+        return tuple(zip(
+        	df.loc[ranked_idx,'image_name'].tolist()[:12]
+        	,list(ranks[ranked_idx]))
+        )
+    else:
+        return []
