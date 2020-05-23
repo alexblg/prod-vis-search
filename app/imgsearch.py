@@ -103,3 +103,34 @@ def image_search_res4(query, path='static/img_top10_labels.csv'):
         )
     else:
         return []
+
+def getwv(s, model):
+    return model.get_word_vector(s)
+
+def getwv_multi_labels(labels, model):
+    sublabels = labels.split(', ')
+    return sum([getwv(subl, model) for subl in  sublabels]) / len(sublabels)
+
+def image_search_res5(query, img_emb_dict, model):
+    
+    # get query embedding representation
+    q = getwv_multi_labels(query, model)
+    
+    if q.sum() != 0:
+        
+        # parse query
+        # ...
+    
+        # score and rank images
+        score = [cosine_sim(q, img_emb_dict[key]) for key in img_emb_dict]
+        score = np.array(score)
+        ranked_idx = np.argsort(-score)
+        ranked_score = score[ranked_idx]
+
+        # gather images w/ top ranks
+        images = labelled_df.loc[ranked_idx, 'image_name'].tolist()[:12]
+        
+        # output list of images and proba
+        return tuple(zip(images, ranked_score))
+    else:
+        return []
