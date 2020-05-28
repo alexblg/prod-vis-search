@@ -37,6 +37,7 @@ def search():
         # assign form data to variables
         query = request.form.get('query', '', type=str)
         print(query)
+        print(print(model.get_word_vector('ball').sum()))
 
     else:
         msg = 'Input error: text should be shorter than 64 characters'
