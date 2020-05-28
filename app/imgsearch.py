@@ -103,3 +103,44 @@ def image_search_res4(query, path='static/img_top10_labels.csv'):
         )
     else:
         return []
+
+import re
+
+def getwv_multi_labels(labels, model):
+    #sublabels = labels.split(', ')
+    sublabels = re.split(r'[, ]\s*', labels)
+    return sum([model.get_word_vector(subl.lower()) for subl in  sublabels]) / len(sublabels)
+
+def image_search_res5(query, img_emb_dict, model, labelled_df_path='static/img_top10_labels_w_weights.csv', thresh=0.0):
+    
+    # get query embedding representation
+    q = getwv_multi_labels(query, model)
+    
+    if q.sum() != 0:
+        
+        # parse query
+        # ...                      
+    
+        # load image label data
+        labelled_df = pd.read_csv(labelled_df_path)
+
+        # map image ids to names
+        img_id_to_name = dict(zip(labelled_df.img_id, labelled_df.image_name))
+        
+        # score and rank images
+        img_idxs = img_emb_dict.keys()
+        score = [(
+            img_id_to_name[key]
+            #,cosine_sim(q, img_emb_dict[key]) # img emb = weighted sum of vec
+            ,sum([weight * cosine_sim(q, vec) for vec, weight in img_emb_dict[key]]) # img emb = [(vec, weight)]
+            #,sum([weight * cosine_sim(q, vec) for vec, weight in img_emb_dict[key]][:3]) # img emb = [(vec, 1)]
+        ) for key in img_idxs]
+        ranked = sorted(score, key=lambda tup: tup[1], reverse=True)
+    
+        if thresh > 0:
+            ranked = [img for img in ranked if img[1] > thresh]
+
+        # output list of images and proba
+        return ranked[:12]
+    else:
+        return []

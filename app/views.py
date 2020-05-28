@@ -11,11 +11,11 @@ import os
 from flask               import render_template, request, url_for, redirect, send_from_directory
 
 # App modules
-from app        import app
+from app        import app, model, img_emb_dict
 from app.forms  import ProdSearch
 
 # search models
-from .imgsearch import image_search_res3 
+from .imgsearch import image_search_res5
 from .utils import get_prod_name_from_img_name
 
 # Product search
@@ -36,17 +36,16 @@ def search():
 
         # assign form data to variables
         query = request.form.get('query', '', type=str)
-        print(query)
-        print(print(model.get_word_vector('ball').sum()))
+        print('query: '+str(query))
 
     else:
         msg = 'Input error: text should be shorter than 64 characters'
 
     # get query image results
-    #img_list = image_search_res3(query, path='app/static/img_top10_labels.csv')
-    import pickle
-    with open(r"app/static/image_list.pkl", "rb") as f:
-        img_list = pickle.load(f)
+    img_list = image_search_res5(query, img_emb_dict, model, labelled_df_path='app/static/img_top10_labels_w_weights.csv', thresh=0.2)
+    #import pickle
+    #with open(r"app/static/image_list.pkl", "rb") as f:
+    #    img_list = pickle.load(f)
     img_list = [img[0] for img in img_list]
     prod_names = get_prod_name_from_img_name(img_list, path='app/static/prod_inventory.csv') # corresponding product names
 
