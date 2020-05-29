@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<div class="page-header header-filter" data-parallax="true" style="background-image: url('/static/assets/img/city-profile.jpg');"></div>
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('/static/assets/img/bg.png');"></div>
 <div class="main main-raised">
   <div class="profile-content">
     <div class="container">
@@ -32,10 +32,10 @@
               {%for img in [imgs,imgs+1,imgs+2]%}
                 <div class="col-md-4" style="margin-bottom: 30px">
                   <div class="thumbnail">
-                      <img src="/static/prod_images/{{res[img]}}" class=" rounded" alt="Lights" style="width:100%; margin-bottom: 5px">
-                      <div class="caption">
-                        <p>{{img_info [img]}}</p>
-                      </div>
+                    <img src="/static/prod_images/{{res[img]}}" class=" rounded" alt="Lights" style="width:100%; margin-bottom: 5px">
+                    <div class="caption">
+                      <p>{{img_info [img]}}</p>
+                    </div>
                   </div>
                 </div>
               {%endfor%}  
@@ -49,6 +49,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 {% endblock content %}
