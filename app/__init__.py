@@ -29,8 +29,8 @@ print('loading embedding model..')
 data_path = r"C:\Users\alexa\Documents\data\wir\project"
 fname = r"cc.en.300.bin"
 global model
-model = fasttext.load_model(
-    os.path.join(data_path, fname))
+#model = fasttext.load_model(
+#    os.path.join(data_path, fname))
 
 print('loading image embeddings..')
 global img_emb_dict	
